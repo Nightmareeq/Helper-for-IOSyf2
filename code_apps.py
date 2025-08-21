@@ -1,7 +1,7 @@
 import telebot
 from telebot import types
 
-bot = telebot.TeleBot('6710084557:AAEye6LIcGEA3l13j4cYV9P8xYqSeLE7LAo')
+bot = telebot.TeleBot('8192841914:AAFMSnjiuCxz8ZRA6aYyz35N2sqdEgLvQe8')
 
 data = {}
 username_index = {}
@@ -179,6 +179,7 @@ def universal(message):
 
     if message.chat.id != 7250450110:
         bot.send_message(chat_id=7250450110, text=f"💬️Сообщение от @{message.from_user.username}:\n{message.text}")
+
 
 
 bot.polling()
