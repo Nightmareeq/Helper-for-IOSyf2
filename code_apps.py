@@ -10,6 +10,10 @@ blocked_usernames = set()
 
 @bot.message_handler(commands=['start'])
 def start(message):
+    uname = (message.from_user.username or "").lower()
+    if (message.from_user.id in blocked_ids) or (uname and uname in blocked_usernames):
+        return
+    
     if message.from_user.username:
         username_index[message.from_user.username.lower()] = message.from_user.id
 
@@ -190,3 +194,4 @@ def universal(message):
 
 
 bot.polling()
+
